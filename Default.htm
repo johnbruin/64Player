@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name='viewport' content='content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0' />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="apple-touch-icon" href="images/64player.png">
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+
+    <title>64Player</title>
+
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/fastclick.js"></script>
+
+    <script src="js/c64_colors.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/webfonts.js"></script>
+    <script src="js/AudioPlayer.js"></script>
+    
+    <script src="js/volume.js"></script>
+    <script src="js/knobKnob/knobKnob.jquery.js"></script>
+    <script src="js/knobKnob/transform.js"></script>
+
+    <!-- Animations -->
+    <script type="text/javascript" src="animations/c64Typer/Effect.js"></script>
+
+    <script type="text/javascript" src="animations/TimeAnalyzer/Effect.js"></script>
+    <script type="text/javascript" src="animations/SpectrumAnalyzer/Effect.js"></script>
+    <script type="text/javascript" src="animations/VolumeMeter/Effect.js"></script>
+    <script type="text/javascript" src="animations/SoundDuration/Effect.js"></script>
+       
+    <link href="css/default.css" rel="stylesheet" />
+    <link href="js/knobKnob/knobKnob.css" rel="stylesheet" />
+</head>
+<body>  
+    <div id="content">
+        <img id="imgPower" src="images/Power.png" class="off" />
+        <div id="infoContainer" style="background-color: black;">
+            <div id="info"></div>
+        </div>
+        <div id="audioControls">
+            <img id="imgStop" src="images/Stop.png" class="off"/>
+            <img id="imgPlay" src="images/Play.png" class="off"/>
+            <img id="imgPause" src="images/Pause.png" class="off"/>
+            <img id="imgEject" src="images/Eject.png" class="off" />             
+        </div>
+
+        <canvas id="equalizerCanvas" width="280" height="200"></canvas>
+        <canvas id="fxCanvas" width="280" height="200"></canvas>
+        <canvas id="volumeCanvas" width="280" height="200"></canvas>
+     
+        <div id="bars">
+            <div id="control"></div>
+        </div>
+        <div id="sliders">
+            <input id="rngFilter1" type="range" min="0" max="1" step="0.01" value="0" />
+            <input id="rngFilter2" type="range" min="0" max="1" step="0.01" value="0" />
+            <input id="rngFilter3" type="range" min="0" max="1" step="0.01" value="0" />
+            <input id="rngFilter4" type="range" min="0" max="1" step="0.01" value="0" />
+            <input id="rngEcho" type="range" min="0" max="1" step="0.01" value="0" />
+        </div>
+    </div>    
+    <input id="audio_file" type="file" accept="audio/*" />
+    <canvas id="backgroundFullCanvas"></canvas>
+</body>
+</html>
