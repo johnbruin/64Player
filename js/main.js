@@ -27,8 +27,12 @@ $(document).ready(function ()
     };
 
     $("#imgEject").click(function () {
-        $("#audio_file").trigger('click');
+        if (powerOn) {
+            $("#audio_file").trigger('click');
+        }
     });
+
+    AudioPlayer_init();
 
     var equalizerCanvas;
     var equalizerContext;
@@ -40,29 +44,17 @@ $(document).ready(function ()
     var backgroundfullCanvas;
     var backgroundfullContext;
 
-    //Increment the idle time counter every second.
-    var idleInterval = setInterval(timerIncrement, 1000);
-    function timerIncrement() {
-        idleTime = idleTime + 1;
-        if (idleTime > 10 && !introPlaying) { 
-            //animations[16].Play(80);
-            idleTime = 0;
-        }
-    }
-
     //Instantiate FastClick on the body to remove click delay
     FastClick.attach(document.body);
 
     function Init() {
         initCanvas();
-        initAnimations();
-        AudioPlayer_init();
+        initAnimations();        
     }
 
     function Start() {
                 
-        initCanvas();
-        initAnimations();
+        Init();
 
         $('#content').hide();
         
@@ -75,14 +67,10 @@ $(document).ready(function ()
 
     function initAnimations()
     {
-        soundDuration = new SoundDuration(document.getElementById('info'));
-
         //0
         animations.push(new SpectrumAnalyzer());
-
         //1
         animations.push(new TimeAnalyzer());
-
         //2
         animations.push(new VolumeMeter());
     }
@@ -95,7 +83,7 @@ $(document).ready(function ()
         //Scale content
         scale = 0.8 * (window.innerWidth / contentWidth);
         $('#content').css('transform', 'scale(' + scale + ',' + scale + ')');
-        $('#bars').css('transform', 'scale(' + 1.8 + ',' + 1.8 + ')');
+        $('#bars').css('transform', 'scale(' + 1.6 + ',' + 1.6 + ')');
 
         equalizerCanvas = document.getElementById('equalizerCanvas');
         equalizerContext = equalizerCanvas.getContext('2d');

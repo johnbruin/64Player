@@ -7,6 +7,8 @@
 
     var width = canvas.width;
     var height = canvas.height;
+    var _backgroundImage = new Image();
+    _backgroundImage.src = "animations/VolumeMeter/Resources/Background.png";
 
     var _playing = false;
     this.IsPlaying = function () {
@@ -25,8 +27,10 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (myAudioAnalyser == null || myAudioVolume == 0)
+        if (myAudioAnalyser == null)
             return canvas;
+
+        context.drawImage(_backgroundImage, 0, 0, canvas.width, canvas.height);
 
         var average = 0;
         var freqByteData = new Uint8Array(myAudioAnalyser.frequencyBinCount);
@@ -36,8 +40,8 @@
         context.save();
         context.beginPath();
         context.moveTo(width / 2, height);
-        var x = Math.sin(average + Math.PI * 1.5) * 70;
-        var y = Math.cos(average + Math.PI * 1.5) * 70;
+        var x = Math.sin(average + Math.PI * 1.65) * 80;
+        var y = Math.cos(average + Math.PI * 1.65) * 80;
 
         context.lineTo((width / 2) + x, height - y);
         context.lineWidth = 3;
@@ -63,6 +67,10 @@
         }
 
         average = values / length;
+
+        if (average > 110)
+            average = 110;
+
         return average;
     }
 }

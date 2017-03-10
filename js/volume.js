@@ -18,12 +18,13 @@
         $('<div class="colorBar">').css({
             backgroundColor: colors.Cyan,
             transform: 'rotate(' + deg + 'deg)',
-            top: -Math.sin(deg / rad2deg) * 65 + 100,
-            left: Math.cos((180 - deg) / rad2deg) * 65 + 100,
+            top: -Math.sin(deg / rad2deg) * 70 + 100,
+            left: Math.cos((180 - deg) / rad2deg) * 70 + 100,
         }).appendTo(bars);
     }
 
     var colorBars = bars.find('.colorBar');
+    colorBars.hide();
     var numBars = 0, lastNum = -1;
 
     $('#control').knobKnob({

@@ -22,7 +22,7 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         
-        if (myAudioAnalyser == null || myAudioVolume == 0)
+        if (myAudioAnalyser == null)
             return canvas;
 
         var width = canvas.width;

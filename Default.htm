@@ -30,11 +30,14 @@
     <script type="text/javascript" src="animations/SoundDuration/Effect.js"></script>
        
     <link href="css/default.css" rel="stylesheet" />
+    <link href="css/shine.css" rel="stylesheet" />
     <link href="js/knobKnob/knobKnob.css" rel="stylesheet" />
 </head>
 <body>  
     <div id="content">
-        <img id="imgPower" src="images/Power.png" class="off" />
+        
+        <img id="imgLogo" src="images/Logo.png" />
+
         <div id="infoContainer" style="background-color: black;">
             <div id="info"></div>
         </div>
@@ -42,22 +45,24 @@
             <img id="imgStop" src="images/Stop.png" class="off"/>
             <img id="imgPlay" src="images/Play.png" class="off"/>
             <img id="imgPause" src="images/Pause.png" class="off"/>
-            <img id="imgEject" src="images/Eject.png" class="off" />             
+            <img id="imgEject" src="images/Eject.png" class="off" /> 
+            <img id="imgPower" src="images/Power.png" class="off" />            
         </div>
 
         <canvas id="equalizerCanvas" width="280" height="200"></canvas>
         <canvas id="fxCanvas" width="280" height="200"></canvas>
         <canvas id="volumeCanvas" width="280" height="200"></canvas>
      
-        <div id="bars">
-            <div id="control"></div>
-        </div>
         <div id="sliders">
             <input id="rngFilter1" type="range" min="0" max="1" step="0.01" value="0" />
             <input id="rngFilter2" type="range" min="0" max="1" step="0.01" value="0" />
             <input id="rngFilter3" type="range" min="0" max="1" step="0.01" value="0" />
             <input id="rngFilter4" type="range" min="0" max="1" step="0.01" value="0" />
-            <input id="rngEcho" type="range" min="0" max="1" step="0.01" value="0" />
+            <input id="rngEcho" type="range" min="0" max="0.98" step="0.01" value="0" />
+        </div>
+
+        <div id="bars">
+            <div id="control"></div>
         </div>
     </div>    
     <input id="audio_file" type="file" accept="audio/*" />

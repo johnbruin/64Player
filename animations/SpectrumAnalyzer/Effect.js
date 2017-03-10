@@ -19,12 +19,16 @@
     this.Play = function () {
         _playing = true;
     }
+
+    this.Stop = function () {
+        _playing = false;
+    }
     
     this.Draw = function () {
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (myAudioAnalyser == null || myAudioVolume == 0)
+        if (myAudioAnalyser == null)
             return canvas;
 
         var block_height = 10;
@@ -38,7 +42,7 @@
 
             var magnitude = freqByteData[i * 5];
 
-            var bar_height = Math.round((magnitude * 1.5) / block_height / 3);
+            var bar_height = 1 + Math.round((magnitude * 2) / block_height / 3);
             
             for (var j = 0; j < bar_height; j++) {
                 var y1 = height - (j * block_height);

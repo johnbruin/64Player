@@ -1,6 +1,6 @@
 ﻿var myAudioContext = new (window.AudioContext || window.webkitAudioContext);
 
-var myAudioFileName = "Rubicon.mp3"
+var myAudioFileName = "Rubicon.mp3";
 var myAudioPlayer = new Audio("sounds/" + myAudioFileName);
 myAudioPlayer.onended = function () {
     $("#imgStop").trigger('click');
@@ -85,19 +85,19 @@ function createSound(context)
     var play = function () {
         if (playing)
             return;
-        myAudioPlayer.play();
         playing = true;
+        myAudioPlayer.play();        
     };
 
     var pause = function () {
-        myAudioPlayer.pause();
         playing = false;
+        myAudioPlayer.pause();        
     };
 
     var stop = function () {
-        myAudioPlayer.pause();
-        myAudioPlayer.currentTime = 0.0;
         playing = false;
+        myAudioPlayer.pause();
+        myAudioPlayer.currentTime = 0.0;        
     };
 
     var getPlaying = function () {
@@ -123,7 +123,9 @@ function createSound(context)
 }
 
 var AudioPlayer_init = function () {
-    var sound = createSound(myAudioContext);    
+    var sound = createSound(myAudioContext);
+    soundDuration = new SoundDuration(document.getElementById('info'));
+    
     $("#imgPower").click(function () {
         if (powerOn)
         {
@@ -139,7 +141,17 @@ var AudioPlayer_init = function () {
             $("#imgPlay").addClass("off");
             $("#imgPause").addClass("off");
             $("#imgStop").addClass("off");
+
             $("#info").html("");
+            $('#bars').find('.colorBar').hide();
+
+            $(".knob .top").removeClass("powerOn");
+            $('.knob .top').addClass("powerOff");
+
+            animations[0].Stop();
+            animations[1].Stop();
+            animations[2].Stop();
+
             powerOn = false;
         }
         else
@@ -147,38 +159,50 @@ var AudioPlayer_init = function () {
             $("#imgPower").removeClass("off");
             $("#imgPower").addClass("on");
             $("#info").html(myAudioFileName);
+            $('#bars').find('.colorBar').show();
+
+            $(".knob .top").addClass("powerOn");
+            $('.knob .top').removeClass("powerOff");
+
+            animations[0].Play();
+            animations[1].Play();
+            animations[2].Play();
+
             powerOn = true;
         }
     });
     $("#imgPlay").click(function () {
         if (powerOn) {
+            sound.play();
+            soundDuration.Play(sound);
+
             $("#imgPlay").removeClass("off");
             $("#imgPause").removeClass("on");
             $("#imgStop").removeClass("on");
 
             $("#imgPlay").addClass("on");
             $("#imgPause").addClass("off");
-            $("#imgStop").addClass("off");
-
-            soundDuration.Play(sound);
-            sound.play();            
+            $("#imgStop").addClass("off");          
         }
     });
     $("#imgPause").click(function () {
         if (powerOn) {
+            sound.pause();
+
             $("#imgPlay").removeClass("on");
             $("#imgPause").removeClass("off");
             $("#imgStop").removeClass("on");
 
             $("#imgPlay").addClass("off");
             $("#imgPause").addClass("on");
-            $("#imgStop").addClass("off");
-               
-            sound.pause();            
+            $("#imgStop").addClass("off");            
         }
     });
     $("#imgStop").click(function () {
         if (powerOn) {
+            sound.stop();
+            soundDuration.Stop();
+            
             $("#imgPlay").removeClass("on");
             $("#imgPause").removeClass("on");
             $("#imgStop").removeClass("off");
@@ -186,9 +210,6 @@ var AudioPlayer_init = function () {
             $("#imgPlay").addClass("off");
             $("#imgPause").addClass("off");
             $("#imgStop").addClass("on");
-                        
-            soundDuration.Stop();
-            sound.stop();
 
             $("#info").html(myAudioFileName);
         }
@@ -213,10 +234,6 @@ var AudioPlayer_init = function () {
     $("#rngEcho").change(function () {
         ChangeFeedback(this.value);
     });
-
-    animations[0].Play();
-    animations[1].Play();
-    animations[2].Play();
 };
 
 ChangeVolume = function (value) {
