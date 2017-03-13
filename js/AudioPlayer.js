@@ -1,6 +1,6 @@
 ﻿var myAudioContext = new (window.AudioContext || window.webkitAudioContext);
 
-var myAudioFileName = "Rubicon.mp3";
+var myAudioFileName = "Pimple_Squeezer_6.mp3";
 var myAudioPlayer = new Audio("sounds/" + myAudioFileName);
 myAudioPlayer.onended = function () {
     $("#imgStop").trigger('click');

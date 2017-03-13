@@ -3,6 +3,7 @@
 var animations = [];
 var introanimations = [];
 var soundDuration;
+var shine;
 
 var colors = new Colors();
 
@@ -23,7 +24,7 @@ $(document).ready(function ()
         myAudioFileName = files[0].name;
         if (powerOn)
             $("#info").html(myAudioFileName);
-        myAudioPlayer.src = file;
+        myAudioPlayer.src = file;        
     };
 
     $("#imgEject").click(function () {
@@ -40,6 +41,8 @@ $(document).ready(function ()
     var fxContext;
     var volumeCanvas;
     var volumeContext;
+    var logoCanvas;
+    var logoContext;
 
     var backgroundfullCanvas;
     var backgroundfullContext;
@@ -67,6 +70,8 @@ $(document).ready(function ()
 
     function initAnimations()
     {
+        shine = new Shine();
+
         //0
         animations.push(new SpectrumAnalyzer());
         //1
@@ -97,6 +102,9 @@ $(document).ready(function ()
         backgroundfullCanvas = document.getElementById('backgroundFullCanvas');
         backgroundfullContext = backgroundfullCanvas.getContext('2d');
 
+        logoCanvas = document.getElementById('logoCanvas');
+        logoContext = logoCanvas.getContext('2d');
+
         //Make the backgroundfullcanvas occupy the full page
         backgroundfullCanvas.width = W;
         backgroundfullCanvas.height = W * 200 / 320;
@@ -123,6 +131,10 @@ $(document).ready(function ()
         if (delta > interval) {
 
             then = now - (delta % interval);
+
+            logoContext.beginPath();
+            logoContext.clearRect(0, 0, logoCanvas.width, logoCanvas.height);
+            logoContext.drawImage(shine.Draw(), 0, 0, logoCanvas.width, logoCanvas.height);
 
             //Draw info
             if (soundDuration.IsPlaying())

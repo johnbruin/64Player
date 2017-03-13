@@ -66,8 +66,8 @@ body {
 
 input[type=range] {
     -webkit-appearance: none;
-    margin: 15px 0;
-    width: 80%;
+    width: 200px;
+    margin: 0;
 }
 
     input[type=range]:focus {
@@ -178,10 +178,26 @@ input[type=range] {
     padding: 20px;
 }
 
-#imgLogo {
+#logo {
     position: absolute;
-    bottom: 225px;
+    bottom: 285px;
     right: 0;
+    width: 300px;
+}
+
+#logoCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 30px;
+}
+
+#imgLogo
+{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 300px;
 }
 
@@ -205,17 +221,22 @@ input[type=range] {
     visibility: collapse;
 }
 
-#info {
-    font-family: Snaredrum;
-    font-size: 70px;
-    width: 910px;
-    padding: 26px 24px 16px;
+#infoContainer {
+    padding-left: 25px;
+    padding-right: 25px;
     position: absolute;
     top: 240px;
     left: 0;
     background-color: black;
+    width: 910px;
+    overflow: hidden;
+}
+#info {
+    font-family: Snaredrum;
+    font-size: 70px;
     color: #70A4B2;
-    height: 38px;
+    line-height: 60px;
+    height: 60px;
 }
 
 #equalizerCanvas {
@@ -239,19 +260,40 @@ input[type=range] {
 #sliders {
     transform: rotate(270deg);
     position: absolute;
-    top: -5px;
+    top: 0;
     left: 380px;
     width: 200px;
     height: 240px;
     background: url("../images/SliderBackground.png");
     background-size: 200px 240px;
     background-repeat: no-repeat;
-    overflow:hidden;
 }
 
-    #sliders input[type=range] {
-        margin: 20px;
-    }
+#rngFilter1 {
+    position:absolute;
+    top: 15px;
+    left: 0;
+}
+#rngFilter2 {
+    position:absolute;
+    top: 63px;
+    left:0;
+}
+#rngFilter3 {
+    position:absolute;
+    top: 112px;
+    left: 0;
+}
+#rngFilter4 {
+    position:absolute;
+    top: 160px;
+    left: 0;
+}
+#rngEcho {
+    position:absolute;
+    top: 207px;
+    left: 0;
+}
 
 #bars {
     height: 212px;

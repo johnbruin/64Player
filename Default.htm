@@ -28,19 +28,23 @@
     <script type="text/javascript" src="animations/SpectrumAnalyzer/Effect.js"></script>
     <script type="text/javascript" src="animations/VolumeMeter/Effect.js"></script>
     <script type="text/javascript" src="animations/SoundDuration/Effect.js"></script>
+    <script type="text/javascript" src="animations/Shine/Effect.js"></script>
        
     <link href="css/default.css" rel="stylesheet" />
-    <link href="css/shine.css" rel="stylesheet" />
     <link href="js/knobKnob/knobKnob.css" rel="stylesheet" />
 </head>
 <body>  
     <div id="content">
         
-        <img id="imgLogo" src="images/Logo.png" />
+        <div id="logo">
+            <canvas id="logoCanvas" width="300" height="30"></canvas>
+            <img id="imgLogo" src="images/Logo.png" />
+        </div>
 
-        <div id="infoContainer" style="background-color: black;">
+        <div id="infoContainer">
             <div id="info"></div>
         </div>
+
         <div id="audioControls">
             <img id="imgStop" src="images/Stop.png" class="off"/>
             <img id="imgPlay" src="images/Play.png" class="off"/>
