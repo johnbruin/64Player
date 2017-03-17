@@ -3,7 +3,9 @@
 var myAudioFileName = "Pimple_Squeezer_6.mp3";
 var myAudioPlayer = new Audio("sounds/" + myAudioFileName);
 myAudioPlayer.onended = function () {
-    $("#imgStop").trigger('click');
+    myAudioPlayer.currentTime = 0.0;
+    myAudioPlayer.play();
+    //$("#imgStop").trigger('click');
 }
 
 var myAudioAnalyser;

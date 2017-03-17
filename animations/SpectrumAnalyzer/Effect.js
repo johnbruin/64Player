@@ -8,7 +8,7 @@
     var width = canvas.width;
     var height = canvas.height - 10;
 
-    var bar_width = 24;
+    var bar_width = 15; //15, 24
     var barCount = Math.round(width / bar_width);
 
     var _playing = false;

@@ -10,7 +10,9 @@
     this.Draw = function () {
         if (xpos > canvas.width * 2)
             xpos = 0;
-        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        context.fillStyle = colors.DarkGray;
+        context.fillRect(0, 0, canvas.width, canvas.height);
         context.drawImage(_backgroundImage, xpos, 0);
         xpos = xpos + 3;
         return canvas;
