@@ -14,24 +14,6 @@ var contentHeight = 600;
 var introPlaying = true;
 var idleTime = 0;
 
-window.onerror = function (msg, url, line, col, error) {
-    // Note that col & error are new to the HTML 5 spec and may not be 
-    // supported in every browser.  It worked for me in Chrome.
-    var extra = !col ? '' : '\ncolumn: ' + col;
-    extra += !error ? '' : '\nerror: ' + error;
-
-    // You can view the information in an alert to see things working like this:
-    alert("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
-
-    // TODO: Report this error via ajax so you can keep track
-    //       of what pages have JS issues
-
-    var suppressErrorAlert = true;
-    // If you return true, then error alerts (like in older versions of 
-    // Internet Explorer) will be suppressed.
-    return suppressErrorAlert;
-};
-
 $(document).ready(function ()
 {    
     var audioFile = document.getElementById('audio_file');        
@@ -40,8 +22,6 @@ $(document).ready(function ()
         var file = URL.createObjectURL(files[0]);
         $("#imgStop").trigger('click');
         myAudioFileName = files[0].name;
-        if (powerOn)
-            $("#info").html(myAudioFileName);
         myAudioPlayer.src = file;        
     };
 
@@ -88,6 +68,8 @@ $(document).ready(function ()
 
     function initAnimations()
     {
+        soundDuration = new SoundDuration(document.getElementById('info'));
+
         shine = new Shine();
 
         animations = [];
@@ -157,7 +139,7 @@ $(document).ready(function ()
             logoContext.drawImage(shine.Draw(), 0, 0, logoCanvas.width, logoCanvas.height);
 
             //Draw info
-            if (soundDuration.IsPlaying())
+            //if (soundDuration.IsPlaying())
                 soundDuration.Draw();
 
             //Draw equalizer animation
@@ -187,8 +169,8 @@ $(document).ready(function ()
                 else {
                     introPlaying = false;
                     fps = 24;
-                    $('#backgroundFullCanvas').css('background-color', colors.DarkGray);
-                    $('#content').css('background-color', colors.DarkGray);
+                    //$('#backgroundFullCanvas').css('background-color', colors.DarkGray);
+                    //$('#content').css('background-color', colors.DarkGray);
                     $('#equalizerCanvas').css('background-color', colors.Black);
                     $('#fxCanvas').css('background-color', colors.Black);
                     $('#volumeCanvas').css('background-color', colors.Black);

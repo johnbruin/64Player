@@ -28,7 +28,7 @@ body {
 }
 
 #backgroundFullCanvas {
-    background-color: #444444;
+    background-color: #000000;
     position: absolute;
     left: 0;
     top: 0;
@@ -172,17 +172,17 @@ input[type=range] {
 #audioControls {
     position: absolute;
     bottom: 40px;
-    right: 0;
+    right: 20px;
     background-color: black;
     width: 240px;
-    height: 120px;
+    height: 160px;
     padding: 20px;
 }
 
 #logo {
     position: absolute;
     bottom: 285px;
-    right: 0;
+    right: 20px;
     width: 300px;
 }
 
@@ -202,20 +202,23 @@ input[type=range] {
     width: 300px;
 }
 
-#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower {
+#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower, #imgPrev, #imgNext {
     margin-bottom: 20px;
     width: 60px;    
     height: 45px;
     border-left: 4px solid #444444;
     border-top: 4px solid #6C6C6C;
-    /*border-bottom: 2px solid #444444;
-    border-right: 2px solid #444444;*/
     cursor: pointer;
 }
 
 #imgPower {
     width: 145px;
     height: 45px;
+}
+
+#imgPrev, #imgNext {
+    width: 100px;
+    height: 25px;
 }
 
 #audio_file {
@@ -227,35 +230,34 @@ input[type=range] {
     padding-right: 25px;
     position: absolute;
     top: 240px;
-    left: 15px;
+    left: 20px;
     background-color: black;
-    width: 880px;
+    width: 870px;
     overflow: hidden;
 }
 #info {
     font-family: Snaredrum;
     font-size: 70px;
-    color: #70A4B2;
     line-height: 60px;
     height: 60px;
 }
 
 #equalizerCanvas {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 20px;
+    left: 20px;
 }
 
 #volumeCanvas {
     position: absolute;
     bottom: 40px;
-    left: 15px;
+    left: 20px;
 }
 
 #fxCanvas {
     position: absolute;
     top: 20px;
-    right: 15px;
+    right: 20px;
 }
 
 #sliders {
@@ -301,7 +303,7 @@ input[type=range] {
     margin: 0 auto;
     position: absolute;
     left: 380px;
-    bottom: 20px;
+    bottom: 35px;
     width: 228px;
     overflow:hidden;
 }

@@ -1,10 +1,13 @@
 ﻿var myAudioContext = new (window.AudioContext || window.webkitAudioContext);
-
-var myAudioFileName = "Pimple_Squeezer_6.mp3";
+var currentSong = 0;
+var myAudioFileNames = ["Nightdawn.mp3", "Pimple_Squeezer_6.mp3", "Rubicon.mp3", "Super_Trucker.mp3"];
+var myAudioFileName = myAudioFileNames[currentSong];
 var myAudioPlayer = new Audio("sounds/" + myAudioFileName);
+myAudioPlayer.preload = "auto";
+myAudioPlayer.loop = true;
 myAudioPlayer.onended = function () {
-    myAudioPlayer.currentTime = 0.0;
-    myAudioPlayer.play();
+    //myAudioPlayer.currentTime = 0.0;
+    //myAudioPlayer.play();
     //$("#imgStop").trigger('click');
 }
 
@@ -126,7 +129,6 @@ function createSound(context)
 
 var AudioPlayer_init = function () {
     var sound = createSound(myAudioContext);
-    soundDuration = new SoundDuration(document.getElementById('info'));
     
     $("#imgPower").click(function () {
         if (powerOn)
@@ -144,7 +146,6 @@ var AudioPlayer_init = function () {
             $("#imgPause").addClass("off");
             $("#imgStop").addClass("off");
 
-            $("#info").html("");
             $('#bars').find('.colorBar').hide();
 
             $(".knob .top").removeClass("powerOn");
@@ -160,7 +161,6 @@ var AudioPlayer_init = function () {
         {
             $("#imgPower").removeClass("off");
             $("#imgPower").addClass("on");
-            $("#info").html(myAudioFileName);
             $('#bars').find('.colorBar').show();
 
             $(".knob .top").addClass("powerOn");
@@ -212,8 +212,42 @@ var AudioPlayer_init = function () {
             $("#imgPlay").addClass("off");
             $("#imgPause").addClass("off");
             $("#imgStop").addClass("on");
-
-            $("#info").html(myAudioFileName);
+        }
+    });
+    $("#imgNext").click(function () {
+        if (powerOn) {
+            var wasPlaying = sound.getPlaying();
+            sound.stop();
+            soundDuration.Stop();            
+            currentSong++;
+            if (currentSong > myAudioFileNames.length - 1)
+                currentSong = 0;
+            myAudioFileName = myAudioFileNames[currentSong];
+            myAudioPlayer.src = "sounds/" + myAudioFileName;
+            if (wasPlaying) {
+                sound.play();
+                sleep(1000).then(() => {
+                    soundDuration.Play(sound);
+                });
+            }
+        }
+    });
+    $("#imgPrev").click(function () {
+        if (powerOn) {
+            var wasPlaying = sound.getPlaying();
+            sound.stop();
+            soundDuration.Stop();
+            currentSong--;
+            if (currentSong < 0)
+                currentSong = myAudioFileNames.length - 1;
+            myAudioFileName = myAudioFileNames[currentSong];
+            myAudioPlayer.src = "sounds/" + myAudioFileName;
+            if (wasPlaying) {
+                sound.play();
+                sleep(1000).then(() => {
+                    soundDuration.Play(sound);
+                });                
+            }
         }
     });
 
@@ -305,3 +339,8 @@ ChangeQuality = function (value) {
     var QUAL_MUL = 30;
     myAudioFilter3.Q.value = value * QUAL_MUL;
 };
+
+// sleep time expects milliseconds
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
