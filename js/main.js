@@ -15,7 +15,38 @@ var introPlaying = true;
 var idleTime = 0;
 
 $(document).ready(function ()
-{    
+{
+    // Set up touch events for mobile, etc
+    var imgForward = document.getElementById('imgForward');
+    imgForward.addEventListener("touchstart", function (e) {
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent("mousedown", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        imgForward.dispatchEvent(mouseEvent);
+    }, false);
+
+    imgForward.addEventListener("touchend", function (e) {
+        var mouseEvent = new MouseEvent("mouseup", {});
+        imgForward.dispatchEvent(mouseEvent);
+    }, false);
+
+    var imgBack = document.getElementById('imgBack');
+    imgBack.addEventListener("touchstart", function (e) {
+        var touch = e.touches[0];
+        var mouseEvent = new MouseEvent("mousedown", {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        imgBack.dispatchEvent(mouseEvent);
+    }, false);
+
+    imgBack.addEventListener("touchend", function (e) {
+        var mouseEvent = new MouseEvent("mouseup", {});
+        imgBack.dispatchEvent(mouseEvent);
+    }, false);
+
     var audioFile = document.getElementById('audio_file');        
     audioFile.onchange = function () {
         var files = this.files;
@@ -32,6 +63,7 @@ $(document).ready(function ()
     });
 
     AudioPlayer_init();
+    UI_init();
 
     //Canvasses
     var equalizerCanvas;

@@ -24,7 +24,7 @@
     this.Draw = function () {
         if (_sound != null && _playing)
         {
-            $("#info").css('color', colors.Cyan);
+            $("#info").css('color', $("#imgPower").css("background-color"));
             var duration = _sound.getDuration();
             var currentTime = _sound.getCurrentTime();
             if (duration >= currentTime) {
@@ -32,7 +32,7 @@
             }
         }
         else if (powerOn) {
-            $("#info").css('color', colors.Cyan);
+            $("#info").css('color', $("#imgPower").css("background-color"));
             var audiofileName = myAudioFileName.replace(".mp3", "");
             if (audiofileName.length > 35) {
                 _index = _index + .3;

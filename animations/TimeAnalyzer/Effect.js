@@ -39,7 +39,7 @@
             var height = HEIGHT * percent;
             var offset = HEIGHT - height - 1;
             var barWidth = width / binCount;
-            context.fillStyle = colors.Cyan;
+            context.fillStyle = $("#imgPower").css("background-color");
             context.fillRect(i * barWidth, y + offset - HEIGHT / 2, 2, 2);
         }
         return canvas;

@@ -46,7 +46,7 @@
             
             for (var j = 0; j < bar_height; j++) {
                 var y1 = height - (j * block_height);
-                context.fillStyle = colors.Cyan;
+                context.fillStyle = $("#imgPower").css("background-color");
                 context.fillRect(5 + bar_width * i, y1, bar_width - 5, y2);
             }
         }        

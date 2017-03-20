@@ -24,8 +24,8 @@
             }).appendTo(bars);
         }
 
-        $('<div class="colorBar">').css({
-            backgroundColor: colors.Cyan,
+        $('<div class="colorBar on">').css({
+            //backgroundColor: colors.Cyan,
             transform: 'rotate(' + deg + 'deg)',
             top: -Math.sin(deg / rad2deg) * 60 + 100,
             left: Math.cos((180 - deg) / rad2deg) * 60 + 100,

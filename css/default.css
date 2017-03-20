@@ -1,4 +1,9 @@
-﻿@font-face {
+﻿* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+}
+
+@font-face {
     font-family: 'CommodoreServer';
     src: url('../fonts/CommodoreServer.ttf');
 }
@@ -214,8 +219,13 @@ input[type=range] {
     height: 25px;
 }
 
-.on {
-    background-color: #70A4B2 !important;
+#imgColor {
+    position:absolute;
+    top:320px;
+    left:430px;
+    width: 100px;
+    height: 25px;
+    z-index:100;
 }
 
 #audio_file {

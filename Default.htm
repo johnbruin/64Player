@@ -12,9 +12,11 @@
     <script src="js/jquery-2.1.0.min.js"></script>
 
     <script src="js/c64_colors.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/webfonts.js"></script>
     <script src="js/AudioPlayer.js"></script>
+    <script src="js/UI.js"></script>
+    <script src="js/webfonts.js"></script>
+
+    <script src="js/main.js"></script>
     
     <script src="js/volume.js"></script>
     <script src="js/knobKnob/knobKnob.jquery.js"></script>
@@ -22,7 +24,6 @@
 
     <!-- Animations -->
     <script type="text/javascript" src="animations/c64Typer/Effect.js"></script>
-
     <script type="text/javascript" src="animations/TimeAnalyzer/Effect.js"></script>
     <script type="text/javascript" src="animations/SpectrumAnalyzer/Effect.js"></script>
     <script type="text/javascript" src="animations/VolumeMeter/Effect.js"></script>
@@ -30,9 +31,10 @@
     <script type="text/javascript" src="animations/Shine/Effect.js"></script>
        
     <link href="css/default.css" rel="stylesheet" />
+    <link id="cssColor" href="css/Color0.css" rel="stylesheet" />
     <link href="js/knobKnob/knobKnob.css" rel="stylesheet" />
 </head>
-<body>  
+<body oncontextmenu="return false;">  
     <div id="content">
         
         <div id="logo">
@@ -43,6 +45,8 @@
         <div id="infoContainer">
             <div id="info"></div>
         </div>
+
+        <img id="imgColor" src="images/Color.png" />
 
         <div id="audioControls">
             <img id="imgPrev" src="images/Prev.png"/>

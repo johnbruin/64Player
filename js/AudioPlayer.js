@@ -246,7 +246,7 @@ var AudioPlayer_init = function () {
         }
     });
     $("#imgForward").mousedown(function () {
-        if (powerOn && isPlaying) {
+        if (powerOn && isPlaying && !isForwarding) {
             $("#imgForward").addClass("on");
             isForwarding = true;
             holdVolume = myAudioVolume;
@@ -261,7 +261,7 @@ var AudioPlayer_init = function () {
         }
     });
     $("#imgBack").mousedown(function () {
-        if (powerOn && isPlaying) {
+        if (powerOn && isPlaying && !isBackwarding) {
             $("#imgBack").addClass("on");
             isBackwarding = true;
             holdVolume = myAudioVolume;

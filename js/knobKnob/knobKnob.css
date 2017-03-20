@@ -31,14 +31,6 @@
 	        cursor:pointer !important;
         }
 
-.knob .top.powerOn:after{
-	background-color:#70A4B2;
-}
-
-.knob .top.powerOff:after{
-	background-color:transparent;
-}
-
 .knob [draggable] {
   -moz-user-select: none;
   -webkit-user-select: none;

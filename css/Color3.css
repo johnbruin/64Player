@@ -1,0 +1,11 @@
+﻿.knob .top.powerOn:after{
+	background-color:#9AD284;
+}
+
+.knob .top.powerOff:after{
+	background-color:transparent;
+}
+
+.on {
+    background-color: #9AD284 !important;
+}
