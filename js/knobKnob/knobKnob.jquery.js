@@ -89,6 +89,9 @@
                         tmp = 0;
                     }
 
+                    if (tmp > 270 - 24)
+                        tmp = 270 - 24;
+
                     // This would suggest we are at an end position;
                     // we need to block further rotation.
                     if (Math.abs(tmp - lastDeg) > 180) {
@@ -98,7 +101,7 @@
                     currentDeg = tmp;
                     lastDeg = tmp;
 
-                    knobTop.css('transform', 'rotate(' + (currentDeg) + 'deg)');
+                    knobTop.css('transform', 'rotate(' + (currentDeg - 30) + 'deg)');
                     options.turn(currentDeg / 360);
                 });
 

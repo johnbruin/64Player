@@ -53,14 +53,6 @@ body {
     font-size: 30px;
 }
 
-.on {
-    background-color: #70A4B2;
-}
-
-.off {
-    background-color: #787878;
-}
-
 /*----------------------------
 	Sliders
 -----------------------------*/
@@ -171,18 +163,18 @@ input[type=range] {
 
 #audioControls {
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     right: 20px;
     background-color: black;
     width: 240px;
-    height: 160px;
+    height: 220px;
     padding: 20px;
 }
 
 #logo {
     position: absolute;
     bottom: 285px;
-    right: 20px;
+    left: 20px;
     width: 300px;
 }
 
@@ -202,13 +194,14 @@ input[type=range] {
     width: 300px;
 }
 
-#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower, #imgPrev, #imgNext {
+#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower, #imgPrev, #imgNext, #imgBack, #imgForward {
     margin-bottom: 20px;
     width: 60px;    
     height: 45px;
     border-left: 4px solid #444444;
     border-top: 4px solid #6C6C6C;
     cursor: pointer;
+    background-color: #787878;
 }
 
 #imgPower {
@@ -216,9 +209,13 @@ input[type=range] {
     height: 45px;
 }
 
-#imgPrev, #imgNext {
+#imgPrev, #imgNext, #imgBack, #imgForward {
     width: 100px;
     height: 25px;
+}
+
+.on {
+    background-color: #70A4B2 !important;
 }
 
 #audio_file {
@@ -240,6 +237,7 @@ input[type=range] {
     font-size: 70px;
     line-height: 60px;
     height: 60px;
+    word-break: break-all;
 }
 
 #equalizerCanvas {
@@ -250,7 +248,7 @@ input[type=range] {
 
 #volumeCanvas {
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     left: 20px;
 }
 
@@ -299,11 +297,10 @@ input[type=range] {
 }
 
 #bars {
-    height: 212px;
-    margin: 0 auto;
+    width: 220px;
+    height: 220px;
     position: absolute;
     left: 380px;
-    bottom: 35px;
-    width: 228px;
-    overflow:hidden;
+    bottom: 10px;
+    overflow: hidden;
 }

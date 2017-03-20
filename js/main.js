@@ -33,6 +33,7 @@ $(document).ready(function ()
 
     AudioPlayer_init();
 
+    //Canvasses
     var equalizerCanvas;
     var equalizerContext;
     var fxCanvas;
@@ -41,12 +42,8 @@ $(document).ready(function ()
     var volumeContext;
     var logoCanvas;
     var logoContext;
-
     var backgroundfullCanvas;
     var backgroundfullContext;
-
-    //Instantiate FastClick on the body to remove click delay
-    FastClick.attach(document.body);
 
     function Init() {
         initCanvas();
@@ -133,6 +130,15 @@ $(document).ready(function ()
         if (delta > interval) {
 
             then = now - (delta % interval);
+
+            if (isForwarding)
+            {
+                myAudioPlayer.currentTime = myAudioPlayer.currentTime + .5;
+            }
+            else if (isBackwarding)
+            {
+                myAudioPlayer.currentTime = myAudioPlayer.currentTime - .5;
+            }
 
             logoContext.beginPath();
             logoContext.clearRect(0, 0, logoCanvas.width, logoCanvas.height);

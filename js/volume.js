@@ -13,13 +13,22 @@
 
     for (var i = 0; i < _colors.length; i++) {
 
-        deg = i * 12;
+        deg = -30 + i * 12;
+
+        if (i < 21) {
+            $('<div class="grayBar">').css({
+                backgroundColor: colors.Black,
+                transform: 'rotate(' + deg + 'deg)',
+                top: -Math.sin(deg / rad2deg) * 60 + 100,
+                left: Math.cos((180 - deg) / rad2deg) * 60 + 100,
+            }).appendTo(bars);
+        }
 
         $('<div class="colorBar">').css({
             backgroundColor: colors.Cyan,
             transform: 'rotate(' + deg + 'deg)',
-            top: -Math.sin(deg / rad2deg) * 70 + 100,
-            left: Math.cos((180 - deg) / rad2deg) * 70 + 100,
+            top: -Math.sin(deg / rad2deg) * 60 + 100,
+            left: Math.cos((180 - deg) / rad2deg) * 60 + 100,
         }).appendTo(bars);
     }
 
@@ -32,7 +41,7 @@
         value: 154,
         turn: function (ratio) {
             numBars = Math.round(colorBars.length * ratio);
-            ChangeVolume(ratio);
+            ChangeVolume(ratio * 1.2);
 
             if (numBars == lastNum) {
                 return false;

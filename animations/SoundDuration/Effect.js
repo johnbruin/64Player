@@ -3,6 +3,7 @@
     element.innerHTML = "";
 
     var _sound = null;
+    var _index = -5;
 
     var _playing = false;
     this.IsPlaying = function () {
@@ -12,10 +13,12 @@
     this.Play = function (sound) {
         _sound = sound;
         _playing = true;
+        _index = -5;
     }
 
     this.Stop = function () {
         _playing = false;
+        var _index = -5;
     }
 
     this.Draw = function () {
@@ -30,10 +33,22 @@
         }
         else if (powerOn) {
             $("#info").css('color', colors.Cyan);
-            element.innerHTML = myAudioFileName;
+            var audiofileName = myAudioFileName.replace(".mp3", "");
+            if (audiofileName.length > 35) {
+                _index = _index + .3;
+                if (_index > audiofileName.length)
+                    _index = -5;
+                if (_index > 0)
+                    audiofileName = audiofileName.substring(_index, audiofileName.length);
+            }
+            else
+            {
+                _index = -5;
+            }
+            element.innerHTML = audiofileName
         }
         else {
-            $("#info").css('color', colors.DarkGray);
+            $("#info").css('color', colors.Gray);
             element.innerHTML = getFullDateTime();
         }
     }

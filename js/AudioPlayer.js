@@ -1,14 +1,24 @@
 ﻿var myAudioContext = new (window.AudioContext || window.webkitAudioContext);
+
+var isForwarding = false;
+var isBackwarding = false;
+var holdVolume;
+var isPlaying = false;
+
 var currentSong = 0;
-var myAudioFileNames = ["Nightdawn.mp3", "Pimple_Squeezer_6.mp3", "Rubicon.mp3", "Super_Trucker.mp3"];
+var myAudioFileNames = [
+    "Super Trucker - Reyn Ouwehand.mp3",
+    "Wizball Highscore - Martin Galway.mp3",
+    "Pimple Squeezer 6 - Johannes Bjerregaard.mp3",
+    "LED Storm - Tim Follin.mp3",
+    "Delta - Rob Hubbard.mp3",    
+    "Rubicon - Jeroen Tel.mp3"
+];
 var myAudioFileName = myAudioFileNames[currentSong];
 var myAudioPlayer = new Audio("sounds/" + myAudioFileName);
 myAudioPlayer.preload = "auto";
-myAudioPlayer.loop = true;
 myAudioPlayer.onended = function () {
-    //myAudioPlayer.currentTime = 0.0;
-    //myAudioPlayer.play();
-    //$("#imgStop").trigger('click');
+    $("#imgNext").trigger('click');
 }
 
 var myAudioAnalyser;
@@ -91,16 +101,19 @@ function createSound(context)
         if (playing)
             return;
         playing = true;
+        isPlaying = playing;
         myAudioPlayer.play();        
     };
 
     var pause = function () {
         playing = false;
+        isPlaying = playing;
         myAudioPlayer.pause();        
     };
 
     var stop = function () {
         playing = false;
+        isPlaying = playing;
         myAudioPlayer.pause();
         myAudioPlayer.currentTime = 0.0;        
     };
@@ -141,11 +154,6 @@ var AudioPlayer_init = function () {
             $("#imgPause").removeClass("on");
             $("#imgStop").removeClass("on");
 
-            $("#imgPower").addClass("off");
-            $("#imgPlay").addClass("off");
-            $("#imgPause").addClass("off");
-            $("#imgStop").addClass("off");
-
             $('#bars').find('.colorBar').hide();
 
             $(".knob .top").removeClass("powerOn");
@@ -159,7 +167,6 @@ var AudioPlayer_init = function () {
         }
         else
         {
-            $("#imgPower").removeClass("off");
             $("#imgPower").addClass("on");
             $('#bars').find('.colorBar').show();
 
@@ -178,13 +185,9 @@ var AudioPlayer_init = function () {
             sound.play();
             soundDuration.Play(sound);
 
-            $("#imgPlay").removeClass("off");
             $("#imgPause").removeClass("on");
             $("#imgStop").removeClass("on");
-
             $("#imgPlay").addClass("on");
-            $("#imgPause").addClass("off");
-            $("#imgStop").addClass("off");          
         }
     });
     $("#imgPause").click(function () {
@@ -192,12 +195,8 @@ var AudioPlayer_init = function () {
             sound.pause();
 
             $("#imgPlay").removeClass("on");
-            $("#imgPause").removeClass("off");
             $("#imgStop").removeClass("on");
-
-            $("#imgPlay").addClass("off");
             $("#imgPause").addClass("on");
-            $("#imgStop").addClass("off");            
         }
     });
     $("#imgStop").click(function () {
@@ -207,10 +206,6 @@ var AudioPlayer_init = function () {
             
             $("#imgPlay").removeClass("on");
             $("#imgPause").removeClass("on");
-            $("#imgStop").removeClass("off");
-
-            $("#imgPlay").addClass("off");
-            $("#imgPause").addClass("off");
             $("#imgStop").addClass("on");
         }
     });
@@ -226,7 +221,7 @@ var AudioPlayer_init = function () {
             myAudioPlayer.src = "sounds/" + myAudioFileName;
             if (wasPlaying) {
                 sound.play();
-                sleep(1000).then(() => {
+                sleep(3000).then(() => {
                     soundDuration.Play(sound);
                 });
             }
@@ -244,10 +239,40 @@ var AudioPlayer_init = function () {
             myAudioPlayer.src = "sounds/" + myAudioFileName;
             if (wasPlaying) {
                 sound.play();
-                sleep(1000).then(() => {
+                sleep(3000).then(() => {
                     soundDuration.Play(sound);
                 });                
             }
+        }
+    });
+    $("#imgForward").mousedown(function () {
+        if (powerOn && isPlaying) {
+            $("#imgForward").addClass("on");
+            isForwarding = true;
+            holdVolume = myAudioVolume;
+            ChangeVolume(0);
+        }
+    });
+    $("#imgForward").mouseup(function () {
+        if (powerOn && isPlaying) {
+            $("#imgForward").removeClass("on");
+            isForwarding = false;
+            ChangeVolume(holdVolume);
+        }
+    });
+    $("#imgBack").mousedown(function () {
+        if (powerOn && isPlaying) {
+            $("#imgBack").addClass("on");
+            isBackwarding = true;
+            holdVolume = myAudioVolume;
+            ChangeVolume(0);
+        }
+    });
+    $("#imgBack").mouseup(function () {
+        if (powerOn && isPlaying) {
+            isBackwarding = false;
+            $("#imgBack").removeClass("on");
+            ChangeVolume(holdVolume);
         }
     });
 
