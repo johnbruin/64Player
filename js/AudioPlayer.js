@@ -162,6 +162,7 @@ var AudioPlayer_init = function () {
             animations[0].Stop();
             animations[1].Stop();
             animations[2].Stop();
+            animations[3].Stop();
 
             powerOn = false;
         }
@@ -176,6 +177,7 @@ var AudioPlayer_init = function () {
             animations[0].Play();
             animations[1].Play();
             animations[2].Play();
+            animations[3].Play();
 
             powerOn = true;
         }

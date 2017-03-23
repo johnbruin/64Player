@@ -51,6 +51,8 @@ body {
     width: 960px;
     height: 600px;
     z-index: 2;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .snaredrumfont {
@@ -87,7 +89,7 @@ input[type=range] {
         box-shadow: 0px 0px 0px #000000;
         border: 0px solid #000000;
         height: 24px;
-        width: 24px;
+        width: 34px;
         border-radius: 0px;
         background: #8A8A8A;
         cursor: pointer;
@@ -114,7 +116,7 @@ input[type=range] {
         box-shadow: 0px 0px 0px #000000;
         border: 0px solid #000000;
         height: 24px;
-        width: 24px;
+        width: 34px;
         border-radius: 0px;
         background: #8A8A8A;
         cursor: pointer;
@@ -148,7 +150,7 @@ input[type=range] {
         box-shadow: 0px 0px 0px #000000;
         border: 0px solid #000000;
         height: 24px;
-        width: 24px;
+        width: 34px;
         border-radius: 0px;
         background: #8A8A8A;
         cursor: pointer;
@@ -199,7 +201,7 @@ input[type=range] {
     width: 300px;
 }
 
-#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower, #imgPrev, #imgNext, #imgBack, #imgForward {
+#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower, #imgPrev, #imgNext, #imgBack, #imgForward, #imgColor, #imgDisplay {
     margin-bottom: 20px;
     width: 60px;    
     height: 45px;
@@ -215,17 +217,13 @@ input[type=range] {
 }
 
 #imgPrev, #imgNext, #imgBack, #imgForward {
-    width: 100px;
+    width: 40px;
     height: 25px;
 }
 
-#imgColor {
-    position:absolute;
-    top:320px;
-    left:430px;
+#imgColor, #imgDisplay {
     width: 100px;
     height: 25px;
-    z-index:100;
 }
 
 #audio_file {
@@ -257,6 +255,12 @@ input[type=range] {
 }
 
 #volumeCanvas {
+    position: absolute;
+    bottom: 70px;
+    left: 20px;
+}
+
+#volumeBarCanvas {
     position: absolute;
     bottom: 20px;
     left: 20px;
@@ -308,9 +312,9 @@ input[type=range] {
 
 #bars {
     width: 220px;
-    height: 220px;
+    height: 150px;
     position: absolute;
     left: 380px;
-    bottom: 10px;
+    bottom: 100px;
     overflow: hidden;
 }

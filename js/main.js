@@ -72,6 +72,8 @@ $(document).ready(function ()
     var fxContext;
     var volumeCanvas;
     var volumeContext;
+    var volumeBarCanvas;
+    var volumeBarContext;
     var logoCanvas;
     var logoContext;
     var backgroundfullCanvas;
@@ -89,9 +91,19 @@ $(document).ready(function ()
         $('#content').hide();
         
         waitForWebfonts(['CommodoreServer', 'Snaredrum'], function () {
-            introanimations.push(new c64Typer('LOAD"64PLAYER",8eedxSEARCHING FOR 64PLAYERedwdLOADINGdwdeREADY.exdwRUNxcwn'));
-            introanimations[0].Play(0);
+            //introanimations.push(new c64Typer('LOAD"64PLAYER",8eedxSEARCHING FOR 64PLAYERedwdLOADINGdwdeREADY.exdwRUNxcwn'));
+            //introanimations[0].Play(0);
             draw();
+
+            introPlaying = false;
+            fps = 24;
+            //$('#backgroundFullCanvas').css('background-color', colors.DarkGray);
+            //$('#content').css('background-color', colors.DarkGray);
+            $('#equalizerCanvas').css('background-color', colors.Black);
+            $('#fxCanvas').css('background-color', colors.Black);
+            $('#volumeCanvas').css('background-color', colors.Black);
+            $('#content').show();
+            Init();
         });
     }
 
@@ -109,6 +121,8 @@ $(document).ready(function ()
         animations.push(new TimeAnalyzer());
         //2
         animations.push(new VolumeMeter());
+        //3
+        animations.push(new VolumeBar());
     }
 
     function initCanvas()
@@ -129,6 +143,9 @@ $(document).ready(function ()
 
         volumeCanvas = document.getElementById('volumeCanvas');
         volumeContext = volumeCanvas.getContext('2d');
+
+        volumeBarCanvas = document.getElementById('volumeBarCanvas');
+        volumeBarContext = volumeBarCanvas.getContext('2d');
 
         backgroundfullCanvas = document.getElementById('backgroundFullCanvas');
         backgroundfullContext = backgroundfullCanvas.getContext('2d');
@@ -198,13 +215,20 @@ $(document).ready(function ()
             if (animations[2].IsPlaying())
                 volumeContext.drawImage(animations[2].Draw(), 0, 0, volumeCanvas.width, volumeCanvas.height);
 
+            //Draw volume bars animation
+            volumeBarContext.beginPath();
+            volumeBarContext.clearRect(0, 0, volumeBarCanvas.width, volumeBarCanvas.height);
+            //if (animations[3].IsPlaying())
+                volumeBarContext.drawImage(animations[3].Draw(), 0, 0, volumeBarCanvas.width, volumeBarCanvas.height);
+
             if (introPlaying) {
                 //Draw intro animations
                 backgroundfullContext.beginPath();
                 backgroundfullContext.clearRect(0, 0, backgroundfullCanvas.width, backgroundfullCanvas.height);
                 if (introanimations[0].IsPlaying())
                     backgroundfullContext.drawImage(introanimations[0].Draw(), 0, 0, backgroundfullCanvas.width, backgroundfullCanvas.height);
-                else {
+                else
+                {
                     introPlaying = false;
                     fps = 24;
                     //$('#backgroundFullCanvas').css('background-color', colors.DarkGray);

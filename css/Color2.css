@@ -1,5 +1,5 @@
 ﻿.knob .top.powerOn:after{
-	background-color:#B8C76F;
+	background-color:#B8C76F; /*Yellow*/
 }
 .knob .top.powerOff:after{
 	background-color:transparent;
