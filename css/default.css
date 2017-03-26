@@ -201,7 +201,11 @@ input[type=range] {
     width: 300px;
 }
 
-#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower, #imgPrev, #imgNext, #imgBack, #imgForward, #imgColor, #imgDisplay {
+#imgStop, #imgPlay, #imgPause, #imgEject, #imgPower,
+#imgPrev, #imgNext, #imgBack, #imgForward,
+#imgColor, #imgDisplay, 
+#imgEqualizerMin, #imgEqualizerPlus,
+#imgFxMin, #imgFxPlus {
     margin-bottom: 20px;
     width: 60px;    
     height: 45px;
@@ -224,6 +228,26 @@ input[type=range] {
 #imgColor, #imgDisplay {
     width: 100px;
     height: 25px;
+}
+
+#imgEqualizerMin, #imgEqualizerPlus, #imgFxMin, #imgFxPlus {
+    position:absolute;
+    top:205px;
+    width: 136px;
+    height: 20px;
+}
+#imgEqualizerMin {
+    left:20px;
+}
+#imgEqualizerPlus {
+    left:160px;
+}
+
+#imgFxMin {
+    right: 160px;
+}
+#imgFxPlus {
+    right:20px;
 }
 
 #audio_file {

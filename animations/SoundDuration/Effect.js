@@ -1,56 +1,124 @@
-﻿function SoundDuration(element)
+﻿function SoundDuration(element, sound)
 {
     element.innerHTML = "";
 
-    var _sound = null;
+    var _sound = sound;
     var _index = -5;
+    var _displayIndex = 0;
+    var _oldDisplayIndex = 0;
+
+    var _showFileNameInterval = 80;
+    var _showFileNameTime = 80;
 
     var _playing = false;
     this.IsPlaying = function () {
         return _playing;
     }
 
-    this.Play = function (sound) {
-        _sound = sound;
+    this.Play = function () {
         _playing = true;
         _index = -5;
     }
 
     this.Stop = function () {
         _playing = false;
-        var _index = -5;
+        _index = -5;
+    }
+
+    this.Next = function () {
+        _showFileNameTime = 80;
+        _showFileNameInterval = -1;
+        _displayIndex = 4;
+        _index = -5;
+    }
+
+    this.ChangeDisplay = function (index) {
+        if (index > 3 || index < 0) {
+            index = 0;
+        }
+        _oldDisplayIndex = index;
+        _showFileNameTime = 80;
+        _showFileNameInterval = 80;
+        _displayIndex = _oldDisplayIndex;
+    }
+
+    this.GetDisplayIndex = function () {
+        return _oldDisplayIndex;
     }
 
     this.Draw = function () {
-        if (_sound != null && _playing)
+        if (_sound == null)
+            return;
+
+        if (!powerOn)
         {
-            $("#info").css('color', $("#imgPower").css("background-color"));
-            var duration = _sound.getDuration();
-            var currentTime = _sound.getCurrentTime();
-            if (duration >= currentTime) {
-                element.innerHTML = "REMAINING: " + formattime(duration - currentTime);
-            }
-        }
-        else if (powerOn) {
-            $("#info").css('color', $("#imgPower").css("background-color"));
-            var audiofileName = myAudioFileName.replace(".mp3", "");
-            if (audiofileName.length > 35) {
-                _index = _index + .3;
-                if (_index > audiofileName.length)
-                    _index = -5;
-                if (_index > 0)
-                    audiofileName = audiofileName.substring(_index, audiofileName.length);
-            }
-            else
-            {
-                _index = -5;
-            }
-            element.innerHTML = audiofileName
-        }
-        else {
             $("#info").css('color', colors.Gray);
             element.innerHTML = getFullDateTime();
         }
+        else
+        {
+            if (_showFileNameTime == 0 && _index < 0) {
+                _showFileNameInterval = 80;
+                _showFileNameTime = -1;
+                _displayIndex = _oldDisplayIndex;
+            }
+
+            if (_showFileNameInterval == 0) {
+                _showFileNameTime = 80;
+                _showFileNameInterval = -1;
+                _oldDisplayIndex = _displayIndex;
+                _displayIndex = 4;
+            }
+
+            if (_showFileNameInterval > 0) {
+                _showFileNameInterval--;
+            }
+            if (_showFileNameTime > 0) {
+                _showFileNameTime--;
+            }
+            
+            $("#info").css('color', $("#imgPower").css("background-color"));
+            var duration = _sound.GetDuration();
+            var currentTime = _sound.GetCurrentTime();
+
+            if (_displayIndex == 0) {
+                if (duration >= currentTime) {
+                    element.innerHTML = "REMAINING TIME: " + formattime(duration - currentTime);
+                }
+            }
+            else if (_displayIndex == 1) {
+                element.innerHTML = "PLAYING TIME: " + formattime(currentTime);
+            }
+            else if (_displayIndex == 4) {
+                var audiofileName = _sound.GetFileName().replace(".mp3", "");
+                element.innerHTML = scrollLongText(audiofileName);
+            }
+            else if (_displayIndex == 2) {
+                element.innerHTML = getFullDateTime();
+            }
+            else if (_displayIndex == 3) {
+                var infoText = "- 64Player - by John Bruin in 2017"
+                element.innerHTML = scrollLongText(infoText);
+            }
+        }
+    }
+
+    function scrollLongText(text)
+    {
+        if (text.length > 35) {
+            _index = _index + .5;
+            if (_index > text.length) {
+                _index = -5;
+                text = "";
+            }
+            else if (_index > 0) {
+                text = text.substring(_index, text.length);
+            }
+        }
+        else {
+            _index = -5;
+        }
+        return text;
     }
 
     function formattime(numberofseconds) {

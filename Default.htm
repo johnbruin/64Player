@@ -20,7 +20,7 @@
 
     <script src="js/main.js"></script>
     
-    <script src="js/volume.js"></script>
+    <script src="js/VolumeButton.js"></script>
     <script src="js/knobKnob/knobKnob.jquery.js"></script>
     <script src="js/knobKnob/transform.js"></script>
 
@@ -32,6 +32,9 @@
     <script type="text/javascript" src="animations/VolumeBar/Effect.js"></script>
     <script type="text/javascript" src="animations/SoundDuration/Effect.js"></script>
     <script type="text/javascript" src="animations/Shine/Effect.js"></script>
+    <script type="text/javascript" src="animations/Elite/Effect.js"></script>
+    <script type="text/javascript" src="animations/PixelField3D/Effect.js"></script>
+    <script type="text/javascript" src="animations/Sphere3D/Effect.js"></script>
        
     <link href="css/default.css" rel="stylesheet" />
     <link id="cssColor" href="css/Color0.css" rel="stylesheet" />
@@ -63,8 +66,14 @@
             <img id="imgPower" src="images/Power.png"/>            
         </div>
 
-        <canvas id="equalizerCanvas" width="280" height="200"></canvas>
-        <canvas id="fxCanvas" width="280" height="200"></canvas>
+        <canvas id="equalizerCanvas" width="280" height="185"></canvas>
+        <img id="imgEqualizerMin" src="images/Min.png" />
+        <img id="imgEqualizerPlus" src="images/Plus.png" />
+
+        <canvas id="fxCanvas" width="280" height="185"></canvas>
+        <img id="imgFxMin" src="images/Min.png" />
+        <img id="imgFxPlus" src="images/Plus.png" />
+
         <canvas id="volumeCanvas" width="280" height="150"></canvas>
         <canvas id="volumeBarCanvas" widht="280" height="50"></canvas>
      

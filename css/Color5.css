@@ -1,5 +1,5 @@
 ﻿.knob .top.powerOn:after{
-	background-color:#6F3D86; /*Purple*/
+	background-color:#959595; /*LightGray*/
 }
 
 .knob .top.powerOff:after{
@@ -7,5 +7,5 @@
 }
 
 .on {
-    background-color: #6F3D86 !important;
+    background-color: #959595 !important;
 }

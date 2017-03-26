@@ -1,17 +1,10 @@
-﻿$(function () {
-
-    var _colors = [
-		colors.Green, colors.Green, colors.Green, colors.Green, colors.Green, colors.Green, colors.Green, colors.Green,
-		colors.LightGreen, colors.LightGreen, colors.LightGreen, colors.LightGreen, colors.LightGreen, colors.LightGreen, colors.LightGreen,
-		colors.Yellow, colors.Yellow, colors.Yellow, colors.Yellow, colors.Yellow, colors.Yellow, colors.Yellow,
-        colors.LightRed, colors.LightRed, colors.LightRed, colors.LightRed, colors.LightRed, colors.LightRed, colors.LightRed, colors.LightRed,
-    ];
+﻿function VolumeButton(audioPlayer) {
 
     var rad2deg = 180 / Math.PI;
     var deg = 0;
     var bars = $('#bars');
 
-    for (var i = 0; i < _colors.length; i++) {
+    for (var i = 0; i < 30; i++) {
 
         deg = -30 + i * 12;
 
@@ -41,7 +34,7 @@
         value: 154,
         turn: function (ratio) {
             numBars = Math.round(colorBars.length * ratio);
-            ChangeVolume(ratio * 1.2);
+            audioPlayer.ChangeVolume(ratio * 1.2);
 
             if (numBars == lastNum) {
                 return false;
@@ -51,5 +44,4 @@
             colorBars.removeClass('active').slice(0, numBars).addClass('active');
         }
     });
-
-});
+}

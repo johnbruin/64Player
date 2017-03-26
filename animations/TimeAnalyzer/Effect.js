@@ -1,4 +1,4 @@
-﻿function TimeAnalyzer()
+﻿function TimeAnalyzer(audioPlayer)
 {
     var canvas = document.createElement("canvas");
     canvas.width = 160;
@@ -22,16 +22,16 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         
-        if (myAudioAnalyser == null)
+        if (audioPlayer.AudioAnalyser == null)
             return canvas;
 
         var width = canvas.width;
         var y = canvas.height / 2;
         var HEIGHT = 100;
         
-        var binCount = myAudioAnalyser.frequencyBinCount;
+        var binCount = audioPlayer.AudioAnalyser.frequencyBinCount;
         var times = new Uint8Array(binCount);
-        myAudioAnalyser.getByteTimeDomainData(times);
+        audioPlayer.AudioAnalyser.getByteTimeDomainData(times);
         
         for (var i = 0; i < binCount; i++) {
             var value = times[i];

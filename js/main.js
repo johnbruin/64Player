@@ -1,69 +1,19 @@
-﻿var fps = 40;
-
-var animations;
-var introanimations = [];
-var soundDuration;
-var shine;
-
+﻿//Globals
+var MyAudioPlayer = new AudioPlayer();
+var powerOn = false;
 var colors = new Colors();
-
-var scale;
-var contentWidth = 960;
-var contentHeight = 600;
-
-var introPlaying = true;
-var idleTime = 0;
+var soundDuration;
+var animations;
 
 $(document).ready(function ()
 {
-    // Set up touch events for mobile, etc
-    var imgForward = document.getElementById('imgForward');
-    imgForward.addEventListener("touchstart", function (e) {
-        var touch = e.touches[0];
-        var mouseEvent = new MouseEvent("mousedown", {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        imgForward.dispatchEvent(mouseEvent);
-    }, false);
+    var introPlaying = true;
+    var fps = 40;
+    var introanimations = [];
+    var shine;
 
-    imgForward.addEventListener("touchend", function (e) {
-        var mouseEvent = new MouseEvent("mouseup", {});
-        imgForward.dispatchEvent(mouseEvent);
-    }, false);
-
-    var imgBack = document.getElementById('imgBack');
-    imgBack.addEventListener("touchstart", function (e) {
-        var touch = e.touches[0];
-        var mouseEvent = new MouseEvent("mousedown", {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        imgBack.dispatchEvent(mouseEvent);
-    }, false);
-
-    imgBack.addEventListener("touchend", function (e) {
-        var mouseEvent = new MouseEvent("mouseup", {});
-        imgBack.dispatchEvent(mouseEvent);
-    }, false);
-
-    var audioFile = document.getElementById('audio_file');        
-    audioFile.onchange = function () {
-        var files = this.files;
-        var file = URL.createObjectURL(files[0]);
-        $("#imgStop").trigger('click');
-        myAudioFileName = files[0].name;
-        myAudioPlayer.src = file;        
-    };
-
-    $("#imgEject").click(function () {
-        if (powerOn) {
-            $("#audio_file").trigger('click');
-        }
-    });
-
-    AudioPlayer_init();
-    UI_init();
+    //Setup UI
+    var MyUI = new UI(MyAudioPlayer);
 
     //Canvasses
     var equalizerCanvas;
@@ -91,14 +41,12 @@ $(document).ready(function ()
         $('#content').hide();
         
         waitForWebfonts(['CommodoreServer', 'Snaredrum'], function () {
-            //introanimations.push(new c64Typer('LOAD"64PLAYER",8eedxSEARCHING FOR 64PLAYERedwdLOADINGdwdeREADY.exdwRUNxcwn'));
+            introanimations.push(new c64Typer('LOAD"64PLAYER",8eedxSEARCHING FOR 64PLAYERedwdLOADINGdwdeREADY.exdwRUNxcwn'));
             //introanimations[0].Play(0);
             draw();
 
             introPlaying = false;
             fps = 24;
-            //$('#backgroundFullCanvas').css('background-color', colors.DarkGray);
-            //$('#content').css('background-color', colors.DarkGray);
             $('#equalizerCanvas').css('background-color', colors.Black);
             $('#fxCanvas').css('background-color', colors.Black);
             $('#volumeCanvas').css('background-color', colors.Black);
@@ -109,29 +57,32 @@ $(document).ready(function ()
 
     function initAnimations()
     {
-        soundDuration = new SoundDuration(document.getElementById('info'));
+        soundDuration = new SoundDuration(document.getElementById('info'), MyAudioPlayer);
 
         shine = new Shine();
 
         animations = [];
 
         //0
-        animations.push(new SpectrumAnalyzer());
+        animations.push(new SpectrumAnalyzer(MyAudioPlayer));
         //1
-        animations.push(new TimeAnalyzer());
+        animations.push(new TimeAnalyzer(MyAudioPlayer));
         //2
-        animations.push(new VolumeMeter());
+        animations.push(new VolumeMeter(MyAudioPlayer));
         //3
-        animations.push(new VolumeBar());
+        animations.push(new VolumeBar(MyAudioPlayer));
     }
 
     function initCanvas()
     {
+        var contentWidth = 960;
+        var contentHeight = 600;
+
         var W = window.innerWidth;
         var H = window.innerHeight;
 
         //Scale content
-        scale = 0.8 * (window.innerWidth / contentWidth);
+        var scale = 0.8 * (window.innerWidth / contentWidth);
         $('#content').css('transform', 'scale(' + scale + ',' + scale + ')');
         $('#bars').css('transform', 'scale(' + 1.6 + ',' + 1.6 + ')');
 
@@ -180,13 +131,13 @@ $(document).ready(function ()
 
             then = now - (delta % interval);
 
-            if (isForwarding)
+            if (MyUI.GetIsForwarding())
             {
-                myAudioPlayer.currentTime = myAudioPlayer.currentTime + .5;
+                MyAudioPlayer.SetCurrentTime(MyAudioPlayer.GetCurrentTime() + .5);
             }
-            else if (isBackwarding)
+            else if (MyUI.GetIsBackwarding())
             {
-                myAudioPlayer.currentTime = myAudioPlayer.currentTime - .5;
+                MyAudioPlayer.SetCurrentTime(MyAudioPlayer.GetCurrentTime() - .5);
             }
 
             logoContext.beginPath();
@@ -194,8 +145,7 @@ $(document).ready(function ()
             logoContext.drawImage(shine.Draw(), 0, 0, logoCanvas.width, logoCanvas.height);
 
             //Draw info
-            //if (soundDuration.IsPlaying())
-                soundDuration.Draw();
+            soundDuration.Draw();
 
             //Draw equalizer animation
             equalizerContext.beginPath();
@@ -231,8 +181,6 @@ $(document).ready(function ()
                 {
                     introPlaying = false;
                     fps = 24;
-                    //$('#backgroundFullCanvas').css('background-color', colors.DarkGray);
-                    //$('#content').css('background-color', colors.DarkGray);
                     $('#equalizerCanvas').css('background-color', colors.Black);
                     $('#fxCanvas').css('background-color', colors.Black);
                     $('#volumeCanvas').css('background-color', colors.Black);

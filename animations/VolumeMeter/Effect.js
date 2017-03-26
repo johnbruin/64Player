@@ -1,4 +1,4 @@
-﻿function VolumeMeter()
+﻿function VolumeMeter(audioPlayer)
 {
     var canvas = document.createElement("canvas");
     canvas.width = 160;
@@ -27,15 +27,15 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (myAudioAnalyser == null)
+        if (audioPlayer.AudioAnalyser == null)
             return canvas;
 
         context.drawImage(_backgroundImage, 0, 0, canvas.width, canvas.height);
 
-        var average = 0;
-        var freqByteData = new Uint8Array(myAudioAnalyser.frequencyBinCount);
-        myAudioAnalyser.getByteFrequencyData(freqByteData);
-        average = getAverageVolume(freqByteData) / 50;
+        var average = audioPlayer.GetAverageVolume();
+        if (average > 110)
+            average = 110;
+        average = average / 50;
 
         context.save();
         context.beginPath();
@@ -53,24 +53,5 @@
         context.restore();
 
         return canvas;
-    }
-
-    function getAverageVolume(array) {
-        var values = 0;
-        var average;
-
-        var length = array.length;
-
-        // get all the frequency amplitudes
-        for (var i = 0; i < length; i++) {
-            values += array[i];
-        }
-
-        average = values / length;
-
-        if (average > 110)
-            average = 110;
-
-        return average;
     }
 }
