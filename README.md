@@ -10,12 +10,12 @@ This music player features:
 - 6 Commodore 64 SID tunes converted to mp3 by Stone Oakvalley's Authentic SID Collection SOASC= (http://www.6581-8580.com)
 
 Music included:
-Super Trucker - Reyn Ouwehand
-Wizball Highscore - Marting Galway
-Pimplesqueezer 6 - Johannes Bjerregaard
-LED Storm - Tim Follin
-Delta - Rob Hubbard
-Rubicon - Jeroen Tel
+- Super Trucker - Reyn Ouwehand
+- Wizball Highscore - Marting Galway
+- Pimplesqueezer 6 - Johannes Bjerregaard
+- LED Storm - Tim Follin
+- Delta - Rob Hubbard
+- Rubicon - Jeroen Tel
 
 Have fun!
 
