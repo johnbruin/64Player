@@ -7,7 +7,9 @@ This music player features:
 - Spectrum and time analyzer and VU meter
 - Several animation FX
 - Play local sound files
-- 6 Commodore 64 SID tunes converted to mp3 by Stone Oakvalley's Authentic SID Collection SOASC= (http://www.6581-8580.com):
+- 6 Commodore 64 SID tunes converted to mp3 by Stone Oakvalley's Authentic SID Collection SOASC= (http://www.6581-8580.com)
+
+Music included:
 Super Trucker - Reyn Ouwehand
 Wizball Highscore - Marting Galway
 Pimplesqueezer 6 - Johannes Bjerregaard
