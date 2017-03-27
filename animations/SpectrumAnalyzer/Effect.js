@@ -72,15 +72,12 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (audioPlayer.AudioAnalyser == null)
-            return canvas;
-
         var block_height = 10;
         var y2 = block_height - 3;
 
-        var binCount = audioPlayer.AudioAnalyser.frequencyBinCount;
+        var binCount = audioPlayer.GetAudioAnalyser().frequencyBinCount;
         var freqByteData = new Uint8Array(binCount);
-        audioPlayer.AudioAnalyser.getByteFrequencyData(freqByteData);
+        audioPlayer.GetAudioAnalyser().getByteFrequencyData(freqByteData);
 
         for (var i = 0; i < barCount; i++) {
             var magnitude = freqByteData[i * 5];

@@ -22,16 +22,13 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         
-        if (audioPlayer.AudioAnalyser == null)
-            return canvas;
-
         var width = canvas.width;
         var y = canvas.height / 2;
         var HEIGHT = 100;
         
-        var binCount = audioPlayer.AudioAnalyser.frequencyBinCount;
+        var binCount = audioPlayer.GetAudioAnalyser().frequencyBinCount;
         var times = new Uint8Array(binCount);
-        audioPlayer.AudioAnalyser.getByteTimeDomainData(times);
+        audioPlayer.GetAudioAnalyser().getByteTimeDomainData(times);
         
         for (var i = 0; i < binCount; i++) {
             var value = times[i];

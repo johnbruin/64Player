@@ -27,9 +27,6 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (audioPlayer.AudioAnalyser == null)
-            return canvas;
-
         context.drawImage(_backgroundImage, 0, 0, canvas.width, canvas.height);
 
         var average = audioPlayer.GetAverageVolume();

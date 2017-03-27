@@ -14,32 +14,47 @@
     ];
     var myAudioFileName = myAudioFileNames[currentSong];
     var myAudioPlayer = new Audio("sounds/" + myAudioFileName);
-    myAudioPlayer.preload = "auto";
     myAudioPlayer.onended = function () {
         $("#imgNext").trigger('click');
     }
 
-    this.AudioAnalyser = null;
-    var myAudioGain;
+    var myAudioAnalyser = context.createAnalyser();
 
-    var myAudioFilter1;
-    var myAudioFilter2;
-    var myAudioFilter3;
-    var myAudioFilter4;
+    // Create the filter.
+    var myAudioFilter1 = context.createBiquadFilter();
+    myAudioFilter1.type = "lowshelf";
+    myAudioFilter1.frequency.value = 5000;
 
-    var myAudioDelay;
-    var myAudioDelayFeedback;
+    // Create the filter.
+    var myAudioFilter2 = context.createBiquadFilter();
+    myAudioFilter2.type = "highshelf";
+    myAudioFilter2.frequency.value = 5000;
 
-    var myAudioVolume = 0;
+    // Create the filter.
+    var myAudioFilter3 = context.createBiquadFilter();
+    myAudioFilter3.type = "lowpass";
+    myAudioFilter3.frequency.value = 5000;
 
-    var myFilter1 = 0;
-    var myFilter2 = 0;
-    var myFilter3 = 0;
-    var myFilter4 = 0;
+    //Create the delay and feedback
+    var myAudioDelay = context.createDelay();
+    myAudioDelay.delayTime.value = 0.05;
 
-    var myEcho = 0;
-    var myDelay = 0;
-    
+    var myAudioDelayFeedback = context.createGain();
+    myAudioDelay.connect(myAudioDelayFeedback);
+    myAudioDelayFeedback.connect(myAudioDelay);
+
+    // Create volume gain 
+    var myAudioGain = context.createGain();
+
+    var sourceNode = context.createMediaElementSource(myAudioPlayer);
+    sourceNode.connect(myAudioDelay);
+    myAudioDelay.connect(myAudioFilter1);
+    myAudioFilter1.connect(myAudioFilter2);
+    myAudioFilter2.connect(myAudioFilter3);
+    myAudioFilter3.connect(myAudioAnalyser);
+    myAudioAnalyser.connect(myAudioGain);
+    myAudioGain.connect(context.destination);
+
     function stop() {
         playing = false;
         myAudioPlayer.pause();
@@ -79,9 +94,13 @@
     }
 
     this.GetAverageVolume = function () {
-        var freqByteData = new Uint8Array(this.AudioAnalyser.frequencyBinCount);
-        this.AudioAnalyser.getByteFrequencyData(freqByteData);
+        var freqByteData = new Uint8Array(myAudioAnalyser.frequencyBinCount);
+        myAudioAnalyser.getByteFrequencyData(freqByteData);
         return getAverageVolume(freqByteData);
+    }
+
+    this.GetAudioAnalyser = function () {
+        return myAudioAnalyser;
     }
 
     function getAverageVolume(array) {
@@ -199,51 +218,18 @@
         myAudioFilter3.Q.value = value * QUAL_MUL;
     };
 
-    var sourceNode = null;
-    var startedAt = 0;
-    var pausedAt = 0;
-
-    sourceNode = context.createMediaElementSource(myAudioPlayer);
-
-    this.AudioAnalyser = context.createAnalyser();
-
-    // Create the filter.
-    myAudioFilter1 = context.createBiquadFilter();
-    myAudioFilter1.type = "lowshelf";
-    myAudioFilter1.frequency.value = 5000;
-
-    // Create the filter.
-    myAudioFilter2 = context.createBiquadFilter();
-    myAudioFilter2.type = "highshelf";
-    myAudioFilter2.frequency.value = 5000;
-
-    // Create the filter.
-    myAudioFilter3 = context.createBiquadFilter();
-    myAudioFilter3.type = "lowpass";
-    myAudioFilter3.frequency.value = 5000;
-
-    //Create the delay and feedback
-    myAudioDelay = context.createDelay();
-    myAudioDelay.delayTime.value = 0.05;
-    myAudioDelayFeedback = context.createGain();
-    myAudioDelay.connect(myAudioDelayFeedback);
-    myAudioDelayFeedback.connect(myAudioDelay);
-
-    // Create volume gain 
-    myAudioGain = context.createGain();
-
+    //Init volume, filters and fx
+    var myAudioVolume = 0;
+    var myFilter1 = 0;
+    var myFilter2 = 0;
+    var myFilter3 = 0;
+    var myFilter4 = 0;
+    var myEcho = 0;
+    var myDelay = 0;
     this.ChangeVolume(myAudioVolume);
     this.ChangeFilter(myFilter1);
     this.ChangeFilter(myFilter2);
     this.ChangeFrequency(myFilter3);
     this.ChangeQuality(myFilter4);
     this.ChangeFeedback(myEcho);
-
-    sourceNode.connect(myAudioDelay);
-    myAudioDelay.connect(myAudioFilter1);
-    myAudioFilter1.connect(myAudioFilter2);
-    myAudioFilter2.connect(myAudioFilter3);
-    myAudioFilter3.connect(this.AudioAnalyser);
-    this.AudioAnalyser.connect(myAudioGain);
-    myAudioGain.connect(context.destination);
 }

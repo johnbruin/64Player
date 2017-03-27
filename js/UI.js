@@ -348,11 +348,6 @@
         audioPlayer.ChangeFeedback(this.value);
     });
 
-    // sleep time expects milliseconds
-    function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    }
-
     function changeFx() {
         if (FxIndex > 3) {
             FxIndex = 0;

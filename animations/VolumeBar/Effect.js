@@ -26,9 +26,6 @@
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (audioPlayer.AudioAnalyser == null)
-            return canvas;
-
         var volume = audioPlayer.GetAverageVolume() / 10;
         if (volume > 10)
             volume = 10;
