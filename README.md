@@ -23,3 +23,13 @@ Known issue: In Safari on iOS the AudioAnalyser is not working. The workaround i
 Have fun!
 
 Demo: http://www.johnbruin.net/64player
+
+## Development
+
+### Setup
+- Install [NodeJS](https://nodejs.org) 6 LTS
+- ```npm install```
+
+### Serve locally
+- ```node serve.js```
+- Surf to [http://localhost:8181](http://localhost:8181)
