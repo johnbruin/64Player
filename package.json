@@ -1,0 +1,23 @@
+{
+  "name": "64player",
+  "version": "1.0.0",
+  "description": "HTML5 music player in the style of the Commodore 64 demo scene.",
+  "main": "Default.htm",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "live-server": "1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnbruin/64Player.git"
+  },
+  "author": "John Bruin",
+  "bugs": {
+    "url": "https://github.com/johnbruin/64Player/issues"
+  },
+  "homepage": "https://github.com/johnbruin/64Player#readme"
+}
