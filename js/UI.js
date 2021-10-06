@@ -193,6 +193,8 @@
             powerOn = false;
         }
         else {
+			audioPlayer.Start();
+			
             $("#imgPower").addClass("on");
             $('#bars').find('.colorBar').show();
 

@@ -1,7 +1,17 @@
 ﻿function AudioPlayer()
 {
-    var context = new (window.AudioContext || window.webkitAudioContext);
+    var context;
     var playing = false;
+    var started = false;
+
+    //Init volume, filters and fx
+    var myAudioVolume = 0;
+    var myFilter1 = 0;
+    var myFilter2 = 0;
+    var myFilter3 = 0;
+    var myFilter4 = 0;
+    var myEcho = 0;
+    var myDelay = 0;
 
     var currentSong = 0;
     var myAudioFileNames = [
@@ -18,48 +28,68 @@
         $("#imgNext").trigger('click');
     }
 
-    var myAudioAnalyser = context.createAnalyser();
+    var myAudioAnalyser;
+    var myAudioFilter1;
+    var myAudioFilter2;
+    var myAudioFilter3;
+    var myAudioDelay;
+    var myAudioDelayFeedback;
+    var myAudioGain;
+    var sourceNode;
 
-    // Create the filter.
-    var myAudioFilter1 = context.createBiquadFilter();
-    myAudioFilter1.type = "lowshelf";
-    myAudioFilter1.frequency.value = 5000;
+    function initAnalyser() {
 
-    // Create the filter.
-    var myAudioFilter2 = context.createBiquadFilter();
-    myAudioFilter2.type = "highshelf";
-    myAudioFilter2.frequency.value = 5000;
+        myAudioAnalyser = context.createAnalyser();
 
-    // Create the filter.
-    var myAudioFilter3 = context.createBiquadFilter();
-    myAudioFilter3.type = "lowpass";
-    myAudioFilter3.frequency.value = 5000;
+        // Create the filter.
+        myAudioFilter1 = context.createBiquadFilter();
+        myAudioFilter1.type = "lowshelf";
+        myAudioFilter1.frequency.value = 5000;
 
-    //Create the delay and feedback
-    var myAudioDelay = context.createDelay();
-    myAudioDelay.delayTime.value = 0.05;
+        // Create the filter.
+        myAudioFilter2 = context.createBiquadFilter();
+        myAudioFilter2.type = "highshelf";
+        myAudioFilter2.frequency.value = 5000;
 
-    var myAudioDelayFeedback = context.createGain();
-    myAudioDelay.connect(myAudioDelayFeedback);
-    myAudioDelayFeedback.connect(myAudioDelay);
+        // Create the filter.
+        myAudioFilter3 = context.createBiquadFilter();
+        myAudioFilter3.type = "lowpass";
+        myAudioFilter3.frequency.value = 5000;
 
-    // Create volume gain 
-    var myAudioGain = context.createGain();
+        //Create the delay and feedback
+        myAudioDelay = context.createDelay();
+        myAudioDelay.delayTime.value = 0.05;
 
-    var sourceNode = context.createMediaElementSource(myAudioPlayer);
-    sourceNode.connect(myAudioDelay);
-    myAudioDelay.connect(myAudioFilter1);
-    myAudioFilter1.connect(myAudioFilter2);
-    myAudioFilter2.connect(myAudioFilter3);
-    myAudioFilter3.connect(myAudioAnalyser);
-    myAudioAnalyser.connect(myAudioGain);
-    myAudioGain.connect(context.destination);
+        myAudioDelayFeedback = context.createGain();
+        myAudioDelay.connect(myAudioDelayFeedback);
+        myAudioDelayFeedback.connect(myAudioDelay);
+
+        // Create volume gain 
+        myAudioGain = context.createGain();
+
+        sourceNode = context.createMediaElementSource(myAudioPlayer);
+        sourceNode.connect(myAudioDelay);
+        myAudioDelay.connect(myAudioFilter1);
+        myAudioFilter1.connect(myAudioFilter2);
+        myAudioFilter2.connect(myAudioFilter3);
+        myAudioFilter3.connect(myAudioAnalyser);
+        myAudioAnalyser.connect(myAudioGain);
+        myAudioGain.connect(context.destination);
+    }
 
     function stop() {
         playing = false;
         myAudioPlayer.pause();
         myAudioPlayer.currentTime = 0.0;
     }
+	
+	function start() {
+        if (!started) {
+            started = true;
+		    context = new (window.AudioContext || window.webkitAudioContext);
+            initAnalyser();
+        }
+	}
         
     this.GetPlaying = function () {
         return playing;
@@ -94,9 +124,11 @@
     }
 
     this.GetAverageVolume = function () {
-        var freqByteData = new Uint8Array(myAudioAnalyser.frequencyBinCount);
-        myAudioAnalyser.getByteFrequencyData(freqByteData);
-        return getAverageVolume(freqByteData);
+        if (started) {
+            var freqByteData = new Uint8Array(myAudioAnalyser.frequencyBinCount);
+            myAudioAnalyser.getByteFrequencyData(freqByteData);
+            return getAverageVolume(freqByteData);
+        }
     }
 
     this.GetAudioAnalyser = function () {
@@ -133,6 +165,16 @@
     this.Stop = function () {
         stop();
     };
+	
+	this.Start = function () {
+		start();
+        this.ChangeVolume(myAudioVolume);
+        this.ChangeFilter(myFilter1);
+        this.ChangeFilter(myFilter2);
+        this.ChangeFrequency(myFilter3);
+        this.ChangeQuality(myFilter4);
+        this.ChangeFeedback(myEcho);
+	}
 
     this.Previous = function () {
         stop();
@@ -211,25 +253,10 @@
         else
             // Get back to the frequency value between min and max.
             myAudioFilter3.frequency.value = maxValue * multiplier;
-    };
+     };
 
     this.ChangeQuality = function (value) {
         var QUAL_MUL = 30;
         myAudioFilter3.Q.value = value * QUAL_MUL;
     };
-
-    //Init volume, filters and fx
-    var myAudioVolume = 0;
-    var myFilter1 = 0;
-    var myFilter2 = 0;
-    var myFilter3 = 0;
-    var myFilter4 = 0;
-    var myEcho = 0;
-    var myDelay = 0;
-    this.ChangeVolume(myAudioVolume);
-    this.ChangeFilter(myFilter1);
-    this.ChangeFilter(myFilter2);
-    this.ChangeFrequency(myFilter3);
-    this.ChangeQuality(myFilter4);
-    this.ChangeFeedback(myEcho);
 }
